@@ -1,0 +1,31 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Channel {
+  url String @id
+  createdBy String
+  chatmateIdentifier String?
+  messageTotal Int
+  deleted Boolean @default(false)
+  createdAt DateTime @default(now())
+}
+
+model Message {
+  messageId String @id
+  message String
+  senderIdentifier String
+  receiverIdentifier String
+  channelUrl String
+  sentAt DateTime @default(now())
+  type String
+  deleted Boolean @default(false)
+}
